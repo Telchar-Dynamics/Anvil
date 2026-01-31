@@ -145,8 +145,8 @@
 		border-color: var(--anvil-accent, #00f0ff);
 	}
 
-	.slider-input:hover ~ .slider-track-wrapper::after,
-	.slider-input:focus ~ .slider-track-wrapper::after {
+	.slider-track-wrapper:hover::after,
+	.slider-track-wrapper:focus-within::after {
 		transform: scale(1.2);
 	}
 </style>

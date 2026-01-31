@@ -1,14 +1,14 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   ANVIL FONT STACKS
-   Choose your preferred typography by importing the appropriate font file
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ANVIL FONT STACKS - Import all font families first */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
    DEFAULT: Rajdhani + Share Tech Mono
    Military-inspired, geometric display font with monospace accents
-   ───────────────────────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
-
+   ═══════════════════════════════════════════════════════════════════════════ */
 .anvil-font-default,
 .font-default {
 	--anvil-font-display: 'Rajdhani', 'Segoe UI', system-ui, sans-serif;
@@ -16,12 +16,10 @@
 	--anvil-font-mono: 'Share Tech Mono', 'JetBrains Mono', 'Consolas', monospace;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
    ORBITRON: Futuristic/Sci-Fi
    Geometric, futuristic display font - great for space/tech themes
-   ───────────────────────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
-
+   ═══════════════════════════════════════════════════════════════════════════ */
 .anvil-font-orbitron,
 .font-orbitron {
 	--anvil-font-display: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
@@ -29,12 +27,10 @@
 	--anvil-font-mono: 'Space Mono', 'JetBrains Mono', monospace;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   EXAN: Military Stencil
+/* ═══════════════════════════════════════════════════════════════════════════
+   MILITARY: Stencil Style
    Bold, stencil-style military aesthetic
-   ───────────────────────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=VT323&display=swap');
-
+   ═══════════════════════════════════════════════════════════════════════════ */
 .anvil-font-military,
 .font-military {
 	--anvil-font-display: 'Black Ops One', 'Impact', system-ui, sans-serif;
@@ -42,12 +38,10 @@
 	--anvil-font-mono: 'VT323', 'Consolas', monospace;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   INTER: Clean Modern
+/* ═══════════════════════════════════════════════════════════════════════════
+   MODERN: Clean Modern (Inter)
    Highly readable, professional modern font
-   ───────────────────────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
+   ═══════════════════════════════════════════════════════════════════════════ */
 .anvil-font-modern,
 .font-modern {
 	--anvil-font-display: 'Inter', system-ui, sans-serif;
@@ -55,12 +49,10 @@
 	--anvil-font-mono: 'JetBrains Mono', 'Consolas', monospace;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
    TECH: Oxanium + Fira Code
    Technical, engineering-focused aesthetic
-   ───────────────────────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
-
+   ═══════════════════════════════════════════════════════════════════════════ */
 .anvil-font-tech,
 .font-tech {
 	--anvil-font-display: 'Oxanium', 'Rajdhani', system-ui, sans-serif;
@@ -68,10 +60,10 @@
 	--anvil-font-mono: 'Fira Code', 'JetBrains Mono', monospace;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
    SYSTEM: Native OS fonts (no external loading)
    Best performance, uses system fonts
-   ───────────────────────────────────────────────────────────────────────────── */
+   ═══════════════════════════════════════════════════════════════════════════ */
 .anvil-font-system,
 .font-system {
 	--anvil-font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;

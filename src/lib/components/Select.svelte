@@ -9,6 +9,7 @@
 	export let label: string | undefined = undefined;
 	export let disabled: boolean = false;
 	export let size: 'sm' | 'md' | 'lg' = 'md';
+	export let id: string = `select-${Math.random().toString(36).slice(2, 9)}`;
 
 	const dispatch = createEventDispatcher<{ change: string }>();
 
@@ -21,10 +22,11 @@
 
 <div class="anvil-select-wrapper">
 	{#if label}
-		<label class="select-label">{label}</label>
+		<label class="select-label" for={id}>{label}</label>
 	{/if}
 	<div class="select-container {size}">
 		<select
+			{id}
 			class="anvil-select"
 			{disabled}
 			{value}

@@ -18,7 +18,16 @@
 	}
 </script>
 
-<div class="anvil-tooltip-wrapper" on:mouseenter={show} on:mouseleave={hide} on:focus={show} on:blur={hide}>
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+	class="anvil-tooltip-wrapper"
+	on:mouseenter={show}
+	on:mouseleave={hide}
+	on:focus={show}
+	on:blur={hide}
+	role="button"
+	tabindex="0"
+>
 	<slot />
 	{#if visible}
 		<div class="anvil-tooltip {position}" role="tooltip">

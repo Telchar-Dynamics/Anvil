@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 	import { fade, scale } from 'svelte/transition';
+	import { browser } from '$app/environment';
 
 	export let open: boolean = false;
 	export let title: string | undefined = undefined;
@@ -28,15 +29,20 @@
 	}
 
 	onMount(() => {
-		document.addEventListener('keydown', handleKeydown);
+		if (browser) {
+			document.addEventListener('keydown', handleKeydown);
+		}
 	});
 
 	onDestroy(() => {
-		document.removeEventListener('keydown', handleKeydown);
+		if (browser) {
+			document.removeEventListener('keydown', handleKeydown);
+		}
 	});
 </script>
 
 {#if open}
+	<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 	<div
 		class="anvil-modal-backdrop"
 		on:click={handleBackdropClick}

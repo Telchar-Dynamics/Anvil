@@ -6,6 +6,7 @@
 	export let disabled: boolean = false;
 	export let error: string | undefined = undefined;
 	export let size: 'sm' | 'md' | 'lg' = 'md';
+	export let id: string = `input-${Math.random().toString(36).slice(2, 9)}`;
 
 	function handleInput(e: Event) {
 		value = (e.target as HTMLInputElement).value;
@@ -14,10 +15,11 @@
 
 <div class="anvil-input-wrapper" class:has-error={!!error}>
 	{#if label}
-		<label class="input-label">{label}</label>
+		<label class="input-label" for={id}>{label}</label>
 	{/if}
 	{#if type === 'number'}
 		<input
+			{id}
 			class="anvil-input {size}"
 			type="number"
 			{placeholder}
@@ -31,6 +33,7 @@
 		/>
 	{:else if type === 'password'}
 		<input
+			{id}
 			class="anvil-input {size}"
 			type="password"
 			{placeholder}
@@ -44,6 +47,7 @@
 		/>
 	{:else if type === 'email'}
 		<input
+			{id}
 			class="anvil-input {size}"
 			type="email"
 			{placeholder}
@@ -57,6 +61,7 @@
 		/>
 	{:else if type === 'search'}
 		<input
+			{id}
 			class="anvil-input {size}"
 			type="search"
 			{placeholder}
@@ -70,6 +75,7 @@
 		/>
 	{:else}
 		<input
+			{id}
 			class="anvil-input {size}"
 			type="text"
 			{placeholder}
