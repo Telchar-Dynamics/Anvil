@@ -2,6 +2,7 @@
 	import '$lib/styles/anvil.css';
 	import '$lib/styles/fonts.css';
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 	import {
 		Button,
 		Card,
@@ -80,11 +81,12 @@
 
 	// Progress animation
 	let progressValue = 0;
-	$: if (typeof window !== 'undefined') {
+	onMount(() => {
 		const interval = setInterval(() => {
 			progressValue = (progressValue + 1) % 101;
 		}, 50);
-	}
+		return () => clearInterval(interval);
+	});
 
 	// Toast state
 	let toasts: ToastItem[] = [];
