@@ -21,7 +21,17 @@
 		Table,
 		Modal,
 		Tooltip,
-		Toast
+		Toast,
+		Alert,
+		Avatar,
+		Skeleton,
+		Kbd,
+		Accordion,
+		Stat,
+		Breadcrumb,
+		Tag,
+		Code,
+		Empty
 	} from '$lib';
 	import type { ToastItem } from '$lib';
 
@@ -74,12 +84,16 @@
 	// Modal state
 	let showModal = false;
 
+	// Accordion state
+	let accordionOpen = false;
+
 	// Tab state
 	let activeTab = 'overview';
 	const tabs = [
 		{ id: 'overview', label: 'Overview' },
 		{ id: 'controls', label: 'Controls' },
-		{ id: 'feedback', label: 'Feedback' }
+		{ id: 'feedback', label: 'Feedback' },
+		{ id: 'data', label: 'Data' }
 	];
 
 	// Progress animation
@@ -124,6 +138,20 @@
 		{ callsign: 'GHOST-12', type: 'UAV', status: 'RTB', fuel: 23 },
 		{ callsign: 'WOLF-07', type: 'UGV', status: 'ACTIVE', fuel: 65 }
 	];
+
+	// Breadcrumb data
+	const breadcrumbItems = [
+		{ label: 'Home', href: '#' },
+		{ label: 'Systems', href: '#' },
+		{ label: 'UAV Fleet', href: '#' },
+		{ label: 'VIPER-01' }
+	];
+
+	// Tags state
+	let tags = ['UAV', 'Active', 'Armed', 'Tracking'];
+	function removeTag(tag: string) {
+		tags = tags.filter(t => t !== tag);
+	}
 </script>
 
 <div class="demo-page font-{fontTheme}" class:no-mono={disableMono}>
@@ -183,37 +211,46 @@
 				</div>
 			</Card>
 
-			<!-- Data Display -->
-			<Card title="Data Values">
-				<div class="data-grid">
-					<DataValue label="Altitude" value="1,250" unit="m" variant="accent" />
-					<DataValue label="Speed" value="45.2" unit="m/s" />
-					<DataValue label="Fuel" value="78" unit="%" variant="success" />
-					<DataValue label="Temp" value="92" unit="°C" variant="warning" />
-					<DataValue label="Error Rate" value="12.5" unit="%" variant="error" />
+			<!-- Avatars -->
+			<Card title="Avatars">
+				<div class="component-grid">
+					<Avatar size="xs" initials="V1" />
+					<Avatar size="sm" initials="HK" />
+					<Avatar size="md" initials="GH" status="online" />
+					<Avatar size="lg" initials="WF" status="busy" />
+					<Avatar size="xl" status="away" />
 				</div>
 			</Card>
 
-			<!-- Table -->
-			<Card title="Data Table">
-				<Table columns={tableColumns} data={tableData} />
+			<!-- Tags -->
+			<Card title="Tags">
+				<div class="component-grid">
+					<Tag>Default</Tag>
+					<Tag variant="accent">Accent</Tag>
+					<Tag variant="success">Success</Tag>
+					<Tag variant="warning">Warning</Tag>
+					<Tag variant="error">Error</Tag>
+				</div>
+				<Divider label="Removable Tags" />
+				<div class="component-grid">
+					{#each tags as tag}
+						<Tag variant="accent" removable on:remove={() => removeTag(tag)}>{tag}</Tag>
+					{/each}
+				</div>
 			</Card>
 
-			<!-- Tooltips -->
-			<Card title="Tooltips">
+			<!-- Tooltips & Keyboard -->
+			<Card title="Tooltips & Keyboard Keys">
 				<div class="component-grid">
 					<Tooltip text="Tooltip on top" position="top">
-						<Button variant="secondary">Top</Button>
+						<Button variant="secondary">Hover me</Button>
 					</Tooltip>
-					<Tooltip text="Tooltip on right" position="right">
-						<Button variant="secondary">Right</Button>
-					</Tooltip>
-					<Tooltip text="Tooltip on bottom" position="bottom">
-						<Button variant="secondary">Bottom</Button>
-					</Tooltip>
-					<Tooltip text="Tooltip on left" position="left">
-						<Button variant="secondary">Left</Button>
-					</Tooltip>
+					<span class="kbd-group">
+						<Kbd>Ctrl</Kbd> + <Kbd>K</Kbd>
+					</span>
+					<span class="kbd-group">
+						<Kbd>⌘</Kbd> + <Kbd>Shift</Kbd> + <Kbd>P</Kbd>
+					</span>
 				</div>
 			</Card>
 		{/if}
@@ -278,6 +315,21 @@
 				</div>
 			</Card>
 
+			<!-- Accordion -->
+			<Card title="Accordion">
+				<div class="accordion-section">
+					<Accordion title="System Information" bind:open={accordionOpen}>
+						<p>Detailed system information and configuration options are displayed here when expanded.</p>
+					</Accordion>
+					<Accordion title="Network Settings">
+						<p>Network configuration, IP addresses, and connection settings.</p>
+					</Accordion>
+					<Accordion title="Disabled Section" disabled>
+						<p>This section is disabled.</p>
+					</Accordion>
+				</div>
+			</Card>
+
 			<!-- Modal -->
 			<Card title="Modal Dialog">
 				<Button variant="primary" on:click={() => showModal = true}>
@@ -287,6 +339,24 @@
 		{/if}
 
 		{#if activeTab === 'feedback'}
+			<!-- Alerts -->
+			<Card title="Alerts">
+				<div class="alert-section">
+					<Alert variant="info" title="Information">
+						System update available. Click to download.
+					</Alert>
+					<Alert variant="success" title="Success">
+						Mission completed successfully.
+					</Alert>
+					<Alert variant="warning" title="Warning" dismissible>
+						Low fuel warning. Return to base recommended.
+					</Alert>
+					<Alert variant="error" title="Error">
+						Connection lost. Attempting to reconnect...
+					</Alert>
+				</div>
+			</Card>
+
 			<!-- Progress Bars -->
 			<Card title="Progress Bars">
 				<div class="progress-section">
@@ -294,12 +364,6 @@
 					<Progress value={75} showValue variant="success" />
 					<Progress value={45} showValue variant="warning" striped />
 					<Progress value={90} showValue variant="error" striped animated />
-				</div>
-				<Divider label="Sizes" />
-				<div class="progress-section">
-					<Progress value={60} size="sm" />
-					<Progress value={60} size="md" />
-					<Progress value={60} size="lg" />
 				</div>
 			</Card>
 
@@ -311,22 +375,94 @@
 					<Spinner size="lg" />
 					<Spinner size="xl" />
 				</div>
-				<Divider label="Variants" />
+				<Divider label="With Labels" />
 				<div class="component-grid">
-					<Spinner variant="default" label="Loading" />
 					<Spinner variant="accent" label="Processing" />
 					<Spinner variant="light" label="Syncing" />
+				</div>
+			</Card>
+
+			<!-- Skeleton Loading -->
+			<Card title="Skeleton Loading">
+				<div class="skeleton-section">
+					<div class="skeleton-row">
+						<Skeleton variant="circular" width="40px" height="40px" />
+						<div class="skeleton-text">
+							<Skeleton variant="text" width="150px" />
+							<Skeleton variant="text" width="100px" />
+						</div>
+					</div>
+					<Skeleton variant="text" lines={3} />
+					<Skeleton variant="rectangular" height="80px" />
 				</div>
 			</Card>
 
 			<!-- Toasts -->
 			<Card title="Toast Notifications">
 				<div class="component-grid">
-					<Button variant="secondary" on:click={() => addToast('info')}>Info Toast</Button>
-					<Button variant="success" on:click={() => addToast('success')}>Success Toast</Button>
-					<Button variant="ghost" on:click={() => addToast('warning')}>Warning Toast</Button>
-					<Button variant="danger" on:click={() => addToast('error')}>Error Toast</Button>
+					<Button variant="secondary" on:click={() => addToast('info')}>Info</Button>
+					<Button variant="success" on:click={() => addToast('success')}>Success</Button>
+					<Button variant="ghost" on:click={() => addToast('warning')}>Warning</Button>
+					<Button variant="danger" on:click={() => addToast('error')}>Error</Button>
 				</div>
+			</Card>
+
+			<!-- Empty State -->
+			<Card title="Empty State">
+				<Empty
+					title="No missions found"
+					description="There are no active missions matching your criteria."
+					icon="search"
+				>
+					<Button variant="primary" size="sm">Create Mission</Button>
+				</Empty>
+			</Card>
+		{/if}
+
+		{#if activeTab === 'data'}
+			<!-- Stats -->
+			<Card title="Statistics">
+				<div class="stat-grid">
+					<Stat label="Active Units" value="24" change={12} />
+					<Stat label="Missions" value="156" change={-3} />
+					<Stat label="Uptime" value="99.9" unit="%" />
+					<Stat label="Response Time" value="42" unit="ms" size="sm" />
+				</div>
+			</Card>
+
+			<!-- Data Values -->
+			<Card title="Data Values">
+				<div class="data-grid">
+					<DataValue label="Altitude" value="1,250" unit="m" variant="accent" />
+					<DataValue label="Speed" value="45.2" unit="m/s" />
+					<DataValue label="Fuel" value="78" unit="%" variant="success" />
+					<DataValue label="Temp" value="92" unit="°C" variant="warning" />
+				</div>
+			</Card>
+
+			<!-- Breadcrumb -->
+			<Card title="Breadcrumb Navigation">
+				<Breadcrumb items={breadcrumbItems} />
+			</Card>
+
+			<!-- Code -->
+			<Card title="Code Display">
+				<p style="margin-bottom: 1rem; font-family: var(--anvil-font-mono); font-size: 12px; color: var(--anvil-fg-1);">
+					Inline code: <Code inline>const status = 'ACTIVE';</Code>
+				</p>
+				<Code language="typescript">
+{`interface MissionConfig {
+  id: string;
+  type: 'recon' | 'strike';
+  priority: number;
+  coordinates: [number, number];
+}`}
+				</Code>
+			</Card>
+
+			<!-- Table -->
+			<Card title="Data Table">
+				<Table columns={tableColumns} data={tableData} />
 			</Card>
 
 			<!-- Panels -->
@@ -339,9 +475,9 @@
 							<Indicator status="warning" label="Sensors" />
 						</div>
 					</Panel>
-					<Panel title="Collapsible Panel" collapsible width="200px">
+					<Panel title="Collapsible" collapsible width="200px">
 						<div class="panel-content-demo">
-							<p>This panel can be collapsed by clicking the header.</p>
+							<p>Click header to collapse.</p>
 						</div>
 					</Panel>
 				</div>
@@ -374,7 +510,7 @@
 
 	<footer class="demo-footer">
 		<Divider variant="accent" />
-		<p>ANVIL v0.1.0 • MIT License • Telchar Dynamics</p>
+		<p>ANVIL v0.1.0 • 29 Components • MIT License • Telchar Dynamics</p>
 	</footer>
 </div>
 
@@ -446,6 +582,7 @@
 		justify-content: center;
 		gap: var(--anvil-space-3);
 		margin-top: var(--anvil-space-4);
+		flex-wrap: wrap;
 	}
 
 	.theme-label {
@@ -472,6 +609,12 @@
 	.data-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+		gap: var(--anvil-space-4);
+	}
+
+	.stat-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 		gap: var(--anvil-space-4);
 	}
 
@@ -516,10 +659,40 @@
 		max-width: 400px;
 	}
 
+	.accordion-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--anvil-space-2);
+	}
+
+	.alert-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--anvil-space-3);
+	}
+
 	.progress-section {
 		display: flex;
 		flex-direction: column;
 		gap: var(--anvil-space-3);
+	}
+
+	.skeleton-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--anvil-space-4);
+	}
+
+	.skeleton-row {
+		display: flex;
+		align-items: center;
+		gap: var(--anvil-space-3);
+	}
+
+	.skeleton-text {
+		display: flex;
+		flex-direction: column;
+		gap: var(--anvil-space-2);
 	}
 
 	.panel-demo {
@@ -553,6 +726,15 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--anvil-space-4);
+	}
+
+	.kbd-group {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--anvil-space-1);
+		font-family: var(--anvil-font-mono);
+		font-size: 11px;
+		color: var(--anvil-fg-muted);
 	}
 
 	.demo-footer {
