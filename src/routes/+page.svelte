@@ -57,7 +57,7 @@
 	}
 
 	// Font theme state
-	let fontTheme = 'default';
+	let fontTheme = 'geist';
 	let disableMono = false;
 	$: if (mounted) loadFont(fontTheme);
 
