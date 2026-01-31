@@ -6,23 +6,82 @@
 	export let disabled: boolean = false;
 	export let error: string | undefined = undefined;
 	export let size: 'sm' | 'md' | 'lg' = 'md';
+
+	function handleInput(e: Event) {
+		value = (e.target as HTMLInputElement).value;
+	}
 </script>
 
 <div class="anvil-input-wrapper" class:has-error={!!error}>
 	{#if label}
 		<label class="input-label">{label}</label>
 	{/if}
-	<input
-		class="anvil-input {size}"
-		{type}
-		{placeholder}
-		{disabled}
-		bind:value
-		on:input
-		on:focus
-		on:blur
-		on:keydown
-	/>
+	{#if type === 'number'}
+		<input
+			class="anvil-input {size}"
+			type="number"
+			{placeholder}
+			{disabled}
+			{value}
+			on:input={handleInput}
+			on:input
+			on:focus
+			on:blur
+			on:keydown
+		/>
+	{:else if type === 'password'}
+		<input
+			class="anvil-input {size}"
+			type="password"
+			{placeholder}
+			{disabled}
+			{value}
+			on:input={handleInput}
+			on:input
+			on:focus
+			on:blur
+			on:keydown
+		/>
+	{:else if type === 'email'}
+		<input
+			class="anvil-input {size}"
+			type="email"
+			{placeholder}
+			{disabled}
+			{value}
+			on:input={handleInput}
+			on:input
+			on:focus
+			on:blur
+			on:keydown
+		/>
+	{:else if type === 'search'}
+		<input
+			class="anvil-input {size}"
+			type="search"
+			{placeholder}
+			{disabled}
+			{value}
+			on:input={handleInput}
+			on:input
+			on:focus
+			on:blur
+			on:keydown
+		/>
+	{:else}
+		<input
+			class="anvil-input {size}"
+			type="text"
+			{placeholder}
+			{disabled}
+			{value}
+			on:input={handleInput}
+			on:input
+			on:focus
+			on:blur
+			on:keydown
+		/>
+	{/if}
 	{#if error}
 		<span class="input-error">{error}</span>
 	{/if}
