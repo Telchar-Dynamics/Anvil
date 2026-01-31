@@ -32,7 +32,7 @@
 .font-modern {
 	--anvil-font-display: 'Inter', system-ui, sans-serif;
 	--anvil-font-body: 'Inter', system-ui, sans-serif;
-	--anvil-font-mono: 'JetBrains Mono', 'Consolas', monospace;
+	--anvil-font-mono: 'Inter', system-ui, sans-serif;
 }
 
 /* TECH: Oxanium + Fira Code */
@@ -43,10 +43,24 @@
 	--anvil-font-mono: 'Fira Code', 'JetBrains Mono', monospace;
 }
 
+/* GEIST: Vercel's modern font */
+.anvil-font-geist,
+.font-geist {
+	--anvil-font-display: 'Geist', system-ui, sans-serif;
+	--anvil-font-body: 'Geist', system-ui, sans-serif;
+	--anvil-font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+}
+
 /* SYSTEM: Native OS fonts (no external loading) */
 .anvil-font-system,
 .font-system {
 	--anvil-font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 	--anvil-font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 	--anvil-font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', 'Liberation Mono', monospace;
+}
+
+/* Modifier: Disable monospace - uses body font instead */
+.anvil-no-mono,
+.no-mono {
+	--anvil-font-mono: var(--anvil-font-body);
 }

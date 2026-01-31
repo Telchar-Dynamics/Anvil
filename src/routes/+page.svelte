@@ -38,7 +38,8 @@
 		orbitron: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap',
 		military: 'https://fonts.googleapis.com/css2?family=Black+Ops+One&family=VT323&family=Rajdhani:wght@400;500;600;700&display=swap',
 		modern: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap',
-		tech: 'https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap'
+		tech: 'https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap',
+		geist: 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap'
 	};
 	const loadedFonts = new Set<string>();
 	let mounted = false;
@@ -57,6 +58,7 @@
 
 	// Font theme state
 	let fontTheme = 'default';
+	let disableMono = false;
 	$: if (mounted) loadFont(fontTheme);
 
 	const fontThemes = [
@@ -65,6 +67,7 @@
 		{ value: 'military', label: 'Military (Black Ops)' },
 		{ value: 'modern', label: 'Modern (Inter)' },
 		{ value: 'tech', label: 'Tech (Oxanium)' },
+		{ value: 'geist', label: 'Geist' },
 		{ value: 'system', label: 'System' }
 	];
 
@@ -123,7 +126,7 @@
 	];
 </script>
 
-<div class="demo-page font-{fontTheme}">
+<div class="demo-page font-{fontTheme}" class:no-mono={disableMono}>
 	<header class="demo-header">
 		<h1>ANVIL</h1>
 		<p class="subtitle">Tactical HUD Component Library</p>
@@ -135,6 +138,7 @@
 				options={fontThemes}
 				bind:value={fontTheme}
 			/>
+			<Toggle label="Disable Mono" bind:checked={disableMono} />
 		</div>
 	</header>
 
