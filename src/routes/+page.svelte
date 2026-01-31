@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '$lib/styles/anvil.css';
 	import '$lib/styles/fonts.css';
+	import { browser } from '$app/environment';
 	import {
 		Button,
 		Card,
@@ -31,8 +32,32 @@
 	let sliderValue = 50;
 	let selectValue = 'option1';
 
+	// Font loading - only load what's needed
+	const fontUrls: Record<string, string> = {
+		default: 'https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap',
+		orbitron: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap',
+		military: 'https://fonts.googleapis.com/css2?family=Black+Ops+One&family=VT323&family=Rajdhani:wght@400;500;600;700&display=swap',
+		modern: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap',
+		tech: 'https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap'
+	};
+	const loadedFonts = new Set<string>();
+
+	function loadFont(theme: string) {
+		if (!browser || theme === 'system' || loadedFonts.has(theme)) return;
+		const url = fontUrls[theme];
+		if (!url) return;
+
+		const link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = url;
+		document.head.appendChild(link);
+		loadedFonts.add(theme);
+	}
+
 	// Font theme state
 	let fontTheme = 'default';
+	$: if (browser) loadFont(fontTheme);
+
 	const fontThemes = [
 		{ value: 'default', label: 'Default (Rajdhani)' },
 		{ value: 'orbitron', label: 'Orbitron' },
