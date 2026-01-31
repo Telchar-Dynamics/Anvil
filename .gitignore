@@ -20,6 +20,10 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+nul
+
+# Claude context
+.claude-context.md
 
 # Logs
 *.log
