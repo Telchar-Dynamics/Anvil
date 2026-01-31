@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '$lib/styles/anvil.css';
 	import '$lib/styles/fonts.css';
-	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import {
 		Button,
@@ -42,9 +41,10 @@
 		tech: 'https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap'
 	};
 	const loadedFonts = new Set<string>();
+	let mounted = false;
 
 	function loadFont(theme: string) {
-		if (!browser || theme === 'system' || loadedFonts.has(theme)) return;
+		if (!mounted || theme === 'system' || loadedFonts.has(theme)) return;
 		const url = fontUrls[theme];
 		if (!url) return;
 
@@ -57,7 +57,7 @@
 
 	// Font theme state
 	let fontTheme = 'default';
-	$: if (browser) loadFont(fontTheme);
+	$: if (mounted) loadFont(fontTheme);
 
 	const fontThemes = [
 		{ value: 'default', label: 'Default (Rajdhani)' },
@@ -81,7 +81,10 @@
 
 	// Progress animation
 	let progressValue = 0;
+
 	onMount(() => {
+		mounted = true;
+		loadFont(fontTheme);
 		const interval = setInterval(() => {
 			progressValue = (progressValue + 1) % 101;
 		}, 50);
