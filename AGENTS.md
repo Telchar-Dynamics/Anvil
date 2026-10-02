@@ -12,6 +12,8 @@ This repo follows the Telchar Dynamics standards in **Telchar-Dynamics/Norma** (
 
 Where this file and Norma disagree, this file wins for this repo.
 
+Norma baseline: `b4fa939` (2026-10-02).
+
 Norma is a private repository. Contributors without access can follow this file and `README.md` alone.
 
 ## Repo rules
